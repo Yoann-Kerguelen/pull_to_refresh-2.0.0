@@ -685,44 +685,30 @@ mixin IndicatorStateMixin<T extends StatefulWidget, V> on State<T> {
   Widget buildContent(BuildContext context, V mode);
 }
 
-/// head Indicator exposure interface
-abstract class RefreshProcessor {
-  /// out of edge offset callback
+mixin RefreshProcessor {
   void onOffsetChange(double offset) {}
-
-  /// mode change callback
   void onModeChange(RefreshStatus? mode) {}
-
-  /// when indicator is ready into refresh,it will call back and waiting for this function finish,then callback onRefresh
   Future readyToRefresh() {
     return Future.value();
   }
 
-  // when indicator is ready to dismiss layout ,it will callback and then spring back after finish
   Future endRefresh() {
     return Future.value();
   }
 
-  // when indicator has been spring back,it  need to reset value
   void resetValue() {}
 }
 
-/// footer Indicator exposure interface
-abstract class LoadingProcessor {
+mixin LoadingProcessor {
   void onOffsetChange(double offset) {}
-
   void onModeChange(LoadStatus? mode) {}
-
-  /// when indicator is ready into refresh,it will call back and waiting for this function finish,then callback onRefresh
   Future readyToLoad() {
     return Future.value();
   }
 
-  // when indicator is ready to dismiss layout ,it will callback and then spring back after finish
   Future endLoading() {
     return Future.value();
   }
 
-  // when indicator has been spring back,it  need to reset value
   void resetValue() {}
 }
