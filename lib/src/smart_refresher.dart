@@ -213,9 +213,9 @@ class SmartRefresher extends StatefulWidget {
       this.child,
       this.header,
       this.footer,
-      this.enablePullDown: true,
-      this.enablePullUp: false,
-      this.enableTwoLevel: false,
+      this.enablePullDown = true,
+      this.enablePullUp = false,
+      this.enableTwoLevel = false,
       this.onRefresh,
       this.onLoading,
       this.onTwoLevel,
@@ -241,9 +241,9 @@ class SmartRefresher extends StatefulWidget {
     Key? key,
     required this.controller,
     required this.builder,
-    this.enablePullDown: true,
-    this.enablePullUp: false,
-    this.enableTwoLevel: false,
+    this.enablePullDown = true,
+    this.enablePullUp = false,
+    this.enableTwoLevel = false,
     this.onRefresh,
     this.onLoading,
     this.onTwoLevel,
@@ -312,7 +312,7 @@ class SmartRefresherState extends State<SmartRefresher> {
       ];
     }
     if (widget.enablePullDown || widget.enableTwoLevel) {
-      slivers?.insert(
+      slivers!.insert(
           0,
           widget.header ??
               (configuration?.headerBuilder != null
@@ -322,7 +322,7 @@ class SmartRefresherState extends State<SmartRefresher> {
     }
     //insert header or footer
     if (widget.enablePullUp) {
-      slivers?.add(widget.footer ??
+      slivers!.add(widget.footer ??
           (configuration?.footerBuilder != null
               ? configuration?.footerBuilder!()
               : null) ??
@@ -596,7 +596,7 @@ class RefreshController {
   ///
   /// initialLoadStatus: footerMode default value
   RefreshController(
-      {this.initialRefresh: false,
+      {this.initialRefresh = false,
       RefreshStatus? initialRefreshStatus,
       LoadStatus? initialLoadStatus}) {
     this.headerMode =
@@ -651,10 +651,10 @@ class RefreshController {
 
   /// make the header enter refreshing state,and callback onRefresh
   Future<void>? requestRefresh(
-      {bool needMove: true,
-      bool needCallback: true,
-      Duration duration: const Duration(milliseconds: 500),
-      Curve curve: Curves.linear}) {
+      {bool needMove = true,
+      bool needCallback = true,
+      Duration duration = const Duration(milliseconds: 500),
+      Curve curve = Curves.linear}) {
     assert(position != null,
         'Try not to call requestRefresh() before build,please call after the ui was rendered');
     if (isRefresh) return Future.value();
@@ -691,12 +691,13 @@ class RefreshController {
         headerMode!.value = RefreshStatus.refreshing;
       });
     }
+    return null;
   }
 
   /// make the header enter refreshing state,and callback onRefresh
   Future<void> requestTwoLevel(
-      {Duration duration: const Duration(milliseconds: 300),
-      Curve curve: Curves.linear}) {
+      {Duration duration = const Duration(milliseconds: 300),
+      Curve curve = Curves.linear}) {
     assert(position != null,
         'Try not to call requestRefresh() before build,please call after the ui was rendered');
     headerMode!.value = RefreshStatus.twoLevelOpening;
@@ -708,10 +709,10 @@ class RefreshController {
 
   /// make the footer enter loading state,and callback onLoading
   Future<void>? requestLoading(
-      {bool needMove: true,
-      bool needCallback: true,
-      Duration duration: const Duration(milliseconds: 300),
-      Curve curve: Curves.linear}) {
+      {bool needMove = true,
+      bool needCallback = true,
+      Duration duration = const Duration(milliseconds: 300),
+      Curve curve = Curves.linear}) {
     assert(position != null,
         'Try not to call requestLoading() before build,please call after the ui was rendered');
     if (isLoading) return Future.value();
@@ -750,7 +751,7 @@ class RefreshController {
   /// request complete,the header will enter complete state,
   ///
   /// resetFooterState : it will set the footer state from noData to idle
-  void refreshCompleted({bool resetFooterState: false}) {
+  void refreshCompleted({bool resetFooterState = false}) {
     headerMode?.value = RefreshStatus.completed;
     if (resetFooterState) {
       resetNoData();
@@ -759,8 +760,8 @@ class RefreshController {
 
   /// end twoLeveling,will return back first floor
   Future<void>? twoLevelComplete(
-      {Duration duration: const Duration(milliseconds: 500),
-      Curve curve: Curves.linear}) {
+      {Duration duration = const Duration(milliseconds: 500),
+      Curve curve = Curves.linear}) {
     headerMode?.value = RefreshStatus.twoLevelClosing;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       position!
@@ -905,29 +906,29 @@ class RefreshConfiguration extends InheritedWidget {
       required this.child,
       this.headerBuilder,
       this.footerBuilder,
-      this.dragSpeedRatio: 1.0,
+      this.dragSpeedRatio = 1.0,
       this.shouldFooterFollowWhenNotFull,
-      this.enableScrollWhenTwoLevel: true,
-      this.enableLoadingWhenNoData: false,
-      this.enableBallisticRefresh: false,
-      this.springDescription: const SpringDescription(
+      this.enableScrollWhenTwoLevel = true,
+      this.enableLoadingWhenNoData = false,
+      this.enableBallisticRefresh = false,
+      this.springDescription = const SpringDescription(
         mass: 2.2,
         stiffness: 150,
         damping: 16,
       ),
-      this.enableScrollWhenRefreshCompleted: false,
-      this.enableLoadingWhenFailed: true,
-      this.twiceTriggerDistance: 150.0,
-      this.closeTwoLevelDistance: 80.0,
-      this.skipCanRefresh: false,
+      this.enableScrollWhenRefreshCompleted = false,
+      this.enableLoadingWhenFailed = true,
+      this.twiceTriggerDistance = 150.0,
+      this.closeTwoLevelDistance = 80.0,
+      this.skipCanRefresh = false,
       this.maxOverScrollExtent,
-      this.enableBallisticLoad: true,
+      this.enableBallisticLoad = true,
       this.maxUnderScrollExtent,
-      this.headerTriggerDistance: 80.0,
-      this.footerTriggerDistance: 15.0,
-      this.hideFooterWhenNotFull: false,
-      this.enableRefreshVibrate: false,
-      this.enableLoadMoreVibrate: false,
+      this.headerTriggerDistance = 80.0,
+      this.footerTriggerDistance = 15.0,
+      this.hideFooterWhenNotFull = false,
+      this.enableRefreshVibrate = false,
+      this.enableLoadMoreVibrate = false,
       this.topHitBoundary,
       this.bottomHitBoundary})
       : assert(headerTriggerDistance > 0),

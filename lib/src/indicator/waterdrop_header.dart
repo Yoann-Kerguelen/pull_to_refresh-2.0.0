@@ -35,10 +35,10 @@ class WaterDropHeader extends RefreshIndicator {
     Key? key,
     this.refresh,
     this.complete,
-    Duration completeDuration: const Duration(milliseconds: 600),
+    Duration completeDuration = const Duration(milliseconds: 600),
     this.failed,
-    this.waterDropColor: Colors.grey,
-    this.idleIcon: const Icon(
+    this.waterDropColor = Colors.grey,
+    this.idleIcon = const Icon(
       Icons.autorenew,
       size: 15,
       color: Colors.white,
